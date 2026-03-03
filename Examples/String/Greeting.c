@@ -1,4 +1,4 @@
-#include "../Modules/String.h"
+#include "../../Modules/String.h"
 
 int main(){
     String* Greeting = New_String();

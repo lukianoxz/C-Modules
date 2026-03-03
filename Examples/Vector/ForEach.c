@@ -1,6 +1,6 @@
-#include "../Modules/Vector.h"
+#include "../../Modules/Vector.h"
 
-CREATE_FOREACH(Print_Int_Vector_ForEach, int){
+void Print_Int_Vector_ForEach(Vector_int* Self, size_t Index, int Value){
     printf("%d", Value);
     if ((Index + 1) < Self->Size){
         printf(", ");
