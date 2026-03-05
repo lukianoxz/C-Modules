@@ -21,6 +21,7 @@ struct Vector_##TYPE { \
     void (*Reserve)(Vector_##TYPE* Self, size_t New_Capacity); \
     int (*IsEmpty)(Vector_##TYPE* Self); \
     void (*Shrink)(Vector_##TYPE* Self); \
+    void (*Clear)(Vector_##TYPE* Self); \
     void (*Destroy)(Vector_##TYPE* Self); \
 }; \
 \
@@ -77,8 +78,11 @@ static int Vector_##TYPE##_IsEmpty(Vector_##TYPE* Self){ \
     return !Self->Size; \
 } \
 static void Vector_##TYPE##_Shrink(Vector_##TYPE* Self){ \
-    Self->Capacity = Self->Size; \
+    Self->Capacity = (Self->Size < 16) ? 16 : Self->Size; \
     Self->Data = (TYPE*)realloc(Self->Data, Self->Type_Size * Self->Capacity); \
+} \
+static void Vector_##TYPE##_Clear(Vector_##TYPE* Self){ \
+    Self->Size = 0; \
 } \
 static void Destroy_Vector_##TYPE(Vector_##TYPE* Self){ \
     free(Self->Data); \
@@ -104,6 +108,7 @@ static Vector_##TYPE* New_Vector_##TYPE(){ \
     Temp->Reserve = Vector_##TYPE##_Reserve; \
     Temp->IsEmpty = Vector_##TYPE##_IsEmpty; \
     Temp->Shrink = Vector_##TYPE##_Shrink; \
+    Temp->Clear = Vector_##TYPE##_Clear; \
     Temp->Destroy = Destroy_Vector_##TYPE; \
 \
     return Temp; \

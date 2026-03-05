@@ -6,7 +6,7 @@ int main(){
     printf("Say your name: ");
 
     Greeting->Append(Greeting, "Hello, ");
-    Greeting->Guin(Greeting);
+    Greeting->Read_Line(Greeting);
     Greeting->Append(Greeting, ", Nice to meet you!\n");
     Greeting->Print(Greeting);
 
